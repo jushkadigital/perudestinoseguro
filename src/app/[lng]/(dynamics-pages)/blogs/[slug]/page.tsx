@@ -13,26 +13,26 @@ import { MultiCarouselRecomends } from "@/components/multiCarouselRecomend";
 
 
 
-async function getPageData(slug: string, lng: LocaleType) {
+// async function getPageData(slug: string, lng: LocaleType) {
 
 
-  const instance = await getBlog({ slug: slug, locale: lng, fields: '*' })
+//   const instance = await getBlog({ slug: slug, locale: lng, fields: '*' })
 
 
 
-  const idInstance = instance.items[0].id
+//   const idInstance = instance.items[0].id
 
-  const related = await getBlog({ translation_of: idInstance })
+//   const related = await getBlog({ translation_of: idInstance })
 
-  const relatedLanguages = related.items.map(ele => ({ language: ele.meta.locale, slug: ele.meta.slug }))
+//   const relatedLanguages = related.items.map(ele => ({ language: ele.meta.locale, slug: ele.meta.slug }))
 
 
-  return {
-    blog: instance.items[0],
-    related: instance.items.map(ele => ({ language: ele.meta.locale, slug: ele.meta.slug })).concat(relatedLanguages)
-  }
+//   return {
+//     blog: instance.items[0],
+//     related: instance.items.map(ele => ({ language: ele.meta.locale, slug: ele.meta.slug })).concat(relatedLanguages)
+//   }
 
-}
+// }
 type PageProps = {
   params: Promise<{
     lng: string
@@ -41,15 +41,15 @@ type PageProps = {
 };
 
 export default async function Page(props: PageProps) {
-  const params = await props.params;
+  // const params = await props.params;
 
 
-  // const {t} = await createTranslation(params.lng,'inicio')
-  const { blog, related } = await getPageData(params.slug, params.lng)
-  const dataInformacion = await getDataNumeros({ fields: '*' })
+  // // const {t} = await createTranslation(params.lng,'inicio')
+  // const { blog, related } = await getPageData(params.slug, params.lng)
+  // const dataInformacion = await getDataNumeros({ fields: '*' })
 
-  const dataTours = await getTour({fields:"*",locale:params.lng,sss:"basic",sender:"1001"})
-  const dataPaquete = await getPaquete({fields:"*",locale:params.lng,sss:"basic",sender:`1001`})
+  // const dataTours = await getTour({fields:"*",locale:params.lng,sss:"basic",sender:"1001"})
+  // const dataPaquete = await getPaquete({fields:"*",locale:params.lng,sss:"basic",sender:`1001`})
 
 
   return (
@@ -60,18 +60,18 @@ export default async function Page(props: PageProps) {
 }
 
 
-export async function generateStaticParams() {
-  const removeAccents = (str) => {
-    return str
-      .normalize("NFD") // Descompone los caracteres con acentos
-      .replace(/([aeiouAEIOU])[\u0300-\u036f]/g, "$1") // Elimina los acentos solo de las vocales
-      .normalize("NFC"); // Recomponer los caracteres
-  };
-  const rawData = await getAllBlogs()
-  const allSlugs = rawData.items
-  const params = allSlugs.map(({ meta }) => ({
-    lng: meta.locale,
-    slug: removeAccents(meta.slug)
-  }))
-  return params
-}
+// export async function generateStaticParams() {
+//   const removeAccents = (str) => {
+//     return str
+//       .normalize("NFD") // Descompone los caracteres con acentos
+//       .replace(/([aeiouAEIOU])[\u0300-\u036f]/g, "$1") // Elimina los acentos solo de las vocales
+//       .normalize("NFC"); // Recomponer los caracteres
+//   };
+//   const rawData = await getAllBlogs()
+//   const allSlugs = rawData.items
+//   const params = allSlugs.map(({ meta }) => ({
+//     lng: meta.locale,
+//     slug: removeAccents(meta.slug)
+//   }))
+//   return params
+// }
