@@ -1,15 +1,4 @@
 'use client'
-import {
-  Drawer,
-  Button,
-  Typography,
-  IconButton,
-  List,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip,
-} from "@material-tailwind/react";
 import React,{ useState } from "react";
 import { MiniNavbar } from "./miniNavBarDash";
 import {UserIcon,PlayCircleIcon,ArrowDownTrayIcon,CalendarIcon} from '@heroicons/react/24/outline'
@@ -57,7 +46,7 @@ const variants: Variants = {
     <div>
       <MiniNavbar action={toggleDrawer}/>
       <div className="flex flex-row">
-      <Drawer open={open} onClose={()=>{}} overlay={false} className="top-22 static">
+      {/**<Drawer open={open} onClose={()=>{}} overlay={false} className="top-22 static">
         <div className="flex flex-row">
         <motion.div  custom={idxNav} animate="visible" variants={variants} className="h-7 w-2 bg bg-[#D20000] mt-4"></motion.div>
         <List>
@@ -75,7 +64,7 @@ const variants: Variants = {
           ))}
         </List>
           </div>
-      </Drawer>
+      </Drawer>**/}
         
       {children}
       </div>

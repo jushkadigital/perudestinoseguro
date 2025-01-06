@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { Card, CardBody, CardFooter, Typography } from "@material-tailwind/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 // const imgs = [
@@ -100,7 +99,7 @@ interface ImagesProps {
   imgIndex:number
 }
 const Images = ({ data,imgIndex }: ImagesProps) => {
-  const MotionCard = motion(Card)
+  // const MotionCard = motion(Card)
   return (
     <>
       {data.map((ele,idx) => <motion.div 
