@@ -1,0 +1,12 @@
+{
+  "home":"home",
+  "about":"about",
+  "destinations":"destinations",
+  "blog": "blog",
+  "contact": "contact",
+  "groupOutings": "Group Outings",
+  "tours":{
+    "from": "from",
+    "booking": "reservar"
+  }
+}
