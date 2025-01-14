@@ -20,50 +20,19 @@ export const metadata: Metadata = {
   }
 }
 
-// export default function RootLayout({
-//   children,
-// }: {
-//   children: React.ReactNode
-// }) {
-//   return (
-//     <html lang="es">
-//       <head/>
-//       <Theme>
-//       <body className={ `${font.variable} ${font2.variable} font-sans`}>
-//       {childrenavn}
-//       </body>
-//       </Theme>
-//     </html>
-//   )
-// }
-//
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const theme = {
-    navbar:{
-      styles:{
-        base:{
-          mobileNav:{
-            overflow: 'overflow-auto',
-            height: 'h-[400px]'
-          }
-        }
-      }
-    },
-    cardBody:{
-      styles:{
-        base:{ 
-          p: 'p-3 py-1'
-        }
-
-      }
-    }
-      }
   return (
-  children
+    <html lang="es">
+      <head/>
+      <body className={ ``}>
+      {children}
+      </body>
+    </html>
   )
 }
+
+

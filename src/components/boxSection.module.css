@@ -1,0 +1,21 @@
+.snap_parent_y_proximity {
+  scroll-snap-type: y proximity;
+  overflow: scroll;
+  height: 100vh;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap_child_start {
+  opacity: 0.5;
+  z-index: 10;
+  scroll-snap-align: start;
+  flex: none;
+}
+
+.snap_child_center {
+  opacity: 1;
+  z-index: 10;
+  scroll-snap-align: center;
+  flex: none;
+}

@@ -168,6 +168,7 @@ export default async function Home(props: Props) {
           <h3 className="my-3 mb-9 lg:my-9 text-[20px] lg:text-[24px] text-[#5B5B5F] lg:text-[#000000] font-semibold text-center lg:no-underline underline underline-offset-8 decoration-red-900 capitalize ">Preguntas Frecuentes</h3>
 
           {/*<Questions questionAnswer={(t('faqInicio',{returnObjects:true})).map(ele=>({question:ele.question ,answer: ele.answer}))} />*/}
+
           {<AccordionShad questionAnswer={(t('faq',{returnObjects:true})).map(ele=>({question:ele.pregunta ,answer: ele.respuesta[0].children[0].text}))}/>}
 
         </div>
