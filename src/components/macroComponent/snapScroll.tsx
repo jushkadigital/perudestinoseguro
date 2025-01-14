@@ -40,27 +40,7 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
     className="relative w-full h-screen"
       
     >
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          fontFamily: "monospace",
-          fontWeight: 600,
-          zIndex: 50,
-        }}
-      >
-        {"height: " +
-          calcHeight.get() +
-          " | y: " +
-          scrollYValue +
-          " | percentage: " +
-          (scrollYProgressValue * 100).toFixed(0) +
-          "% | WindowSize h: " +
-          windowSize.height +
-          " w: " +
-          windowSize.width +
-          "   "}
-      </div>
+     
       <div
         style={{
           position: "absolute",

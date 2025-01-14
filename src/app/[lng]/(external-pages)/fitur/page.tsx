@@ -129,7 +129,7 @@ export default async function Fitur(props: Props) {
         <div className="w-full flex flex-row">
           <div className="w-1/2 h-screen flex justify-center items-center">
             <div className="max-w-[80%] flex flex-col gap-y-5">
-              <div className="flex flex-row"><Image src="/isologo-two.png" width={100} height={100} alt="aa" className="h-20" /> <h1 className="text-[#4A0700]  text-6xl font-black">   {t('Seccion1.titulo')}</h1></div>
+              <div className="flex flex-row"><Image src="/isologo-two.png" width={100} height={100} alt="aa" className="h-20" /> <h1 className="text-[#4A0700]  text-6xl font-black font-custom">   {t('Seccion1.titulo')}</h1></div>
               <div className="p-10  mx-auto bg-gray-200 shadow-lg rounded-[20px] overflow-hidden flex flex-col justify-center items-center">
                 <BlockRendererClient
                   content={t('Seccion1.parrafo', { returnObjects: true })}
@@ -155,7 +155,8 @@ export default async function Fitur(props: Props) {
           <div className="w-1/2 h-screen flex justify-center items-center">
             <div className="max-w-[80%] flex flex-col gap-y-5">
 
-              <div className="flex flex-row"><h1 className="text-[#efb810]  text-6xl font-black"> {t('Seccion15.titulo')}</h1>  <Image src="/isologo-one.png" width={100} height={100} alt="aa" className="h-20" /> </div>
+              <div className="flex flex-row">
+              <h1 className="text-[#efb810]  text-6xl font-black font-custom"> {t('Seccion15.titulo')}</h1>  <Image src="/isologo-one.png" width={100} height={100} alt="aa" className="h-20" /> </div>
               <div className="text-white">
                 <BlockRendererClient
                   content={t('Seccion15.parrafo', { returnObjects: true })}
