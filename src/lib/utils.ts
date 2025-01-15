@@ -42,3 +42,7 @@ export async function myFetch(url:string, urlParams = {}, headers = {}) {
     return { error: error.message };
   }
 }
+
+export function deviceOutput(input:number,mult:number,dimension:string,isMobile:boolean){
+     return isMobile ? (input * mult).toString() + dimension :  (input).toString() + dimension
+  }

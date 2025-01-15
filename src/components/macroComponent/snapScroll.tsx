@@ -23,10 +23,13 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
   const windowSize = useWindowSize()
 
   const ref = useRef(null)
-  const { scrollY, scrollYProgress } = useScroll()
-  const pageRange = [0, 0.15, 0.3, 0.5, 0.7, 1];
-  const lengthRange = ["75vh", "45vh", "50vh", "45vh", "50vh", "100vh"];
-  const calcHeight = useTransform(scrollYProgress, pageRange, lengthRange)
+  const { scrollY, scrollYProgress } = useScroll(
+  )
+
+    const smoothScroll = useTransform(scrollY, (v) => v * 0.5);
+  // const pageRange = [0, 0.15, 0.3, 0.5, 0.7, 1];
+  // const lengthRange = ["75vh", "45vh", "50vh", "45vh", "50vh", "100vh"];
+  // const calcHeight = useTransform(scrollYProgress, pageRange, lengthRange)
 
   const [scrollYValue, setScrollYValue] = useState(0);
   const [scrollYProgressValue, setScrollYProgressValue] = useState(0)
@@ -50,6 +53,7 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
           width: "100%",
           zIndex: 20,
           pointerEvents: "none",
+          overflowX: "hidden"
         }}
       >
       </div>
@@ -57,7 +61,9 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
         ref={ref}
         style={{
           position: "absolute",
+          y: smoothScroll
         }}
+
       >
         {children}
       </SnapParent>
