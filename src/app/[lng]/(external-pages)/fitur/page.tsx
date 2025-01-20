@@ -171,7 +171,7 @@ export default async function Fitur(props: Props) {
             </div>
           </div>
           <div className="w-[60vw] h-20">
-            <YouTubeEmbed  videoId="19g66ezsKAg" title="AAA"/>
+            <YouTubeEmbed  videoId="J4eLEY9fA9A" title="AAA"/>
           </div>
         </div>
         </div>
