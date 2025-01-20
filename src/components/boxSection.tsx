@@ -59,16 +59,18 @@ export const BoxSection = ({
     <div
       ref={ref}
       style={{
-        height: full ? deviceOutput(100,1.5,"vh",isMobile) : half ? deviceOutput(50,1.5,"vh",isMobile) : 120,
+        height: full ? deviceOutput(100,1.5,"vh",isMobile) : half ? deviceOutput(100,0.75,"vh",isMobile) : 120,
+
       }}
       
-      className={cn(styles.snap_child_center,`${ full ? "100vh" : "50vh" } `,className)}
+      className={cn( full ? styles.snap_child_center : styles.snap_child_start ,`${ full ? "100vh" : "50vh" } `,className)}
     >
       <motion.div
         // style={{
         //   backgroundColor: "white",
         //   zIndex: 40
         // }}
+        className="h-full"
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
         variants={vari[animation]}

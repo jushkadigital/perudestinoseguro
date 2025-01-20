@@ -1,0 +1,19 @@
+{
+  "registerAndWorkwithUs": "REGISTRATE Y TRABAJA CON NOSOTROS",
+  "form":{
+    "managerNameTitle": "Nombre del Gerente",
+    "managerNamePlaceholder": "Indícanos el nombre del representante de tu agencia",
+    "countryPrefixTitle": "Prefijo",
+    "countryPrefixPlaceholder": "Prefijo Internacional de tu Pais",
+    "phoneNumberTitle": "Numero de Telefono ",
+    "phoneNumberTitlePlaceholder": "Numero de Telefono",
+    "suggestionsTitle": "Consultas",
+    "suggestionsPlaceholder": "Escribenos detalles Adicionales",
+    "termsAndConditionsTitle": "Términos y condiciones",
+    "termsAndConditionsParagraph": "Al hacer click usted esta deacuerdo con nuestros",
+    "termsAndConditionsButton": "términos y condiciones",
+    "scheduleMeet": "Agendar Reunion",
+    "sendForm": "Enviar"
+  }
+}
+

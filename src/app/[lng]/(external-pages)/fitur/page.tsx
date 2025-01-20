@@ -16,6 +16,11 @@ import BlockRendererClient from '@/components/wsgyStrapi'
 import { MotionImageComponent } from '@/components/componentsClient'
 import Image from "next/image"
 import { ThreeDCardDemo } from '@/components/macroComponent/imageAnimationCard'
+import { FormAgenciar } from '@/components/macroComponent/formFitur'
+import {CardPortada} from "@/components/anima/cardPortada.tsx"
+import {TextClient} from "@/components/textClient"
+import {SwitchAnimatedComponent} from "@/components/switchBox"
+import {YouTubeEmbed} from "@/components/YoutubeEmbed"
 
 
 type Props = {
@@ -25,15 +30,10 @@ type Props = {
 }
 
 async function getPageData(slug: string, lng: LocaleType) {
-
+  
   const instance = await myFetch("fitur", { locale: lng }, {})
 
-  // const idInstance = instance.items[0].id
-
-  // const related = await getInicioPage({translation_of:idInstance})
-
-  // const relatedLanguages = related.items.map(ele=> ({language: ele.meta.locale,slug:ele.meta.slug}))
-
+ 
 
   return {
     first: instance,
@@ -44,42 +44,12 @@ async function getPageData(slug: string, lng: LocaleType) {
 
 export default async function Fitur(props: Props) {
   const params = await props.params;
-  // let paquetes: any[] = await getAllPaquetes()
-  // paquetes = paquetes.reverse()
-  // // paquetes = paquetes.map(ele => ele.acf).reverse()
-
-  // let destinos: any[] = await getAllDestinos()
-  // destinos = destinos.map(ele => ele.acf).reverse()
-
-  // let imgCarousels: any[] = await getAllImgCarousel()
-  // imgCarousels = imgCarousels.map(ele => ele.acf)
-
-  // let pregFrecuents: any[] = await getAllPregFrecuentes()
-  // pregFrecuents = pregFrecuents.map(ele => ele.acf).reverse()
-  // // console.log(paquetes)
-  // console.log(imgCarousels);
-  // console.log(pregFrecuents);
+  
 
 
+  const { t } = await createTranslation(params.lng, 'fitur');
 
-  const { t } = await createTranslation(params.lng, 'fitur')
-
-
-
-  // const dataGeneral = await getInicioPage()
-
-  // const instance =  await myFetch("inicio",{locale:lng},{})
-
-  // const paquetes = await getPaquetes(['featuredImage','precio','duracion'])
-
-  // const paquetes = await getPaquete({fields:"featuredImage,precio,duracion",locale:params.lng,sss:"nocampaing",sender:"2"})
-  // console.log(dataGeneral)
-  // const gallery = 
-  // const gallery = dataGeneral.galleryInicio.map(ele=>({img:ele.image.meta.download_url,titulo:ele.carouselTitulo,duracion:ele.carouselDuracion}))
-
-
-  // const { first} = await getPageData("inicio",params.lng)
-
+ 
   const CARDS = [
     {
       id: 0,
@@ -122,7 +92,6 @@ export default async function Fitur(props: Props) {
   ];
 
 
-
   const seccion3: any[] = t('Seccion3.beneficios', { returnObjects: true })
   const seccion3One = seccion3.slice(0, 3)
   const seccion3Two = seccion3.slice(3, 6)
@@ -130,13 +99,13 @@ export default async function Fitur(props: Props) {
   console.log(seccion3Two)
   return (
     <SnapScrolling>
-      <BoxSection full animation="right" className="bg-[#efb810]">
+      <BoxSection full animation="right" className="bg-gray-200">
         <div className="w-full flex flex-col lg:flex-row gap-y-10 lg:gap-y-0">
           <div className="w-full lg:w-1/2 lg:h-screen flex justify-center items-center  mt-10 lg:mt-0">
             <div className="max-w-[90%] lg:max-w-[80%] flex flex-col gap-y-5">
-              <div className="flex lg:flex-row flex-col items-center gap-y-2"><Image src="/isologo-two.png" width={100} height={100} alt="aa" className="h-20" />
-                <h1 className="text-[#4A0700] text-5xl  lg:text-6xl font-bold font-custom text-center ">   {t('Seccion1.titulo')}</h1></div>
-              <div className="p-10 text-xs lg:text-base  mx-auto bg-gray-200 shadow-lg rounded-[20px] overflow-hidden flex flex-col justify-center items-center">
+              <div className="flex lg:flex-row flex-col items-center gap-y-2"><Image src="/isologo-one.png" width={100} height={100} alt="aa" className="h-20" />
+                <h1 className="text-black text-5xl  lg:text-6xl font-bold font-custom text-center ">   {t('Seccion1.titulo')}</h1></div>
+              <div className="p-10 text-xs lg:text-base  mx-auto bg-white shadow-lg rounded-[20px] overflow-hidden flex flex-col justify-center items-center">
                 <BlockRendererClient
                   content={t('Seccion1.parrafo', { returnObjects: true })}
                 />
@@ -189,16 +158,29 @@ export default async function Fitur(props: Props) {
           <div className="text-[#4a0700]">
             Itinerarios
           </div>
-          <CardStack items={CARDS} />
+          {/* <CardPortada />*/}
         </div>
       </BoxSection>
-      <BoxSection full className="bg-gray-200">
-        <div className="h-[40rem] flex flex-col items-center justify-center w-full gap-y-10 lg:gap-y-6">
+      <BoxSection half className="bg-gray-200">
+        <div className="h-full flex flex-col justify-around lg:justify-start">
+        <div className=" flex flex-col items-center justify-center w-full gap-y-10 lg:gap-y-6">
           <div className="text-black text-[35px] lg:text-[50px] font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
             <Image src={"/isologo-04.png"} width={100} height={73} alt="oaoe" />
             <div className="font-custom ">
               BENEFICIOS - VENTAJAS
             </div>
+          </div>
+          <div className="w-[60vw] h-20">
+            <YouTubeEmbed  videoId="19g66ezsKAg" title="AAA"/>
+          </div>
+        </div>
+        </div>
+
+      </BoxSection>
+
+        <BoxSection half className="bg-gray-200">
+        <div className="h-[40rem] flex flex-col items-center justify-center w-full gap-y-10 lg:gap-y-6">
+          <div className="text-black text-[35px] lg:text-[50px] font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
 
           </div>
           <div className="flex flex-row gap-x-10">
@@ -224,7 +206,38 @@ export default async function Fitur(props: Props) {
         </div>
 
       </BoxSection>
-    </SnapScrolling>
+
+      <BoxSection full className="bg-gray-200">
+      <div className="w-full h-full flex flex-col lg:flex-row justify-center gap-y-10 lg:gap-y-0">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center gap-y-6"> 
+          <div className="w-[250px] flex flex-row gap-x-4">
+          
+          <div>
+          
+          <Image  src={"/formLogo.svg"} alt="" width={150} height={150}/>
+          </div>
+
+            <div>
+          <TextClient text={"registerAndWorkwithUs"} lng={params.lng} seccion={"fitur"} className="font-custom text-[#4a0700] text-3xl font-bold"/>        
+          </div>
+
+          </div>
+
+          <div className="flex flex-col gap-y-2 lg:gap-y-0 lg:flex-row">
+          {[0,1,2].map((ele,idx)=>
+          <Image key={idx} src={"/isologo-04.png"} alt="" width={100} height={100}/>
+          )}
+          </div>
+        </div>
+        <div className="w-full lg:w-1/2 bg-[#4a0700]  flex flex-row justify-around items-center"> 
+            <Image src="/isologo-one.png" width={73} height={100} alt="aa" className="" />
+           <FormAgenciar />
+            <Image src="/isologo-one.png" width={73} height={100} alt="aa" className="" />
+        </div>
+      </div>
+      </BoxSection>  
+
+      </SnapScrolling>
   )
 }
 
