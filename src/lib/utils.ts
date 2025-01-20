@@ -1,6 +1,14 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+export function* zip<T extends any[][]>(...args: T) {
+    for (let i = 0; i < Math.min(...args.map((e) => { return e.length })); ++i) {
+        yield args.map((e) => { return e[i]; }) as
+            { [I in keyof T]: T[I][number] };
+    }
+}
+
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }

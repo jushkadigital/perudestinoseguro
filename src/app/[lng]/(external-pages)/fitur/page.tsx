@@ -142,6 +142,7 @@ export default async function Fitur(props: Props) {
                 <BlockRendererClient
                   content={t('Seccion15.parrafo', { returnObjects: true })}
                 />
+                <Image src={"/peruLogo.svg"} width={100} height={100} className="hidden"/>
 
               </div>
 
@@ -158,7 +159,7 @@ export default async function Fitur(props: Props) {
           <div className="text-[#4a0700]">
             Itinerarios
           </div>
-          {/* <CardPortada />*/}
+          <CardPortada />
         </div>
       </BoxSection>
       <BoxSection half className="bg-gray-200">
