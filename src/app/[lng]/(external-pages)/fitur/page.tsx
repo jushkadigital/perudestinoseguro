@@ -18,6 +18,7 @@ import Image from "next/image"
 import { ThreeDCardDemo } from '@/components/macroComponent/imageAnimationCard'
 import { FormAgenciar } from '@/components/macroComponent/formFitur'
 import {CardPortada} from "@/components/anima/cardPortada.tsx"
+import {CardDias} from "@/components/anima/cardDias.tsx"
 import {TextClient} from "@/components/textClient"
 import {SwitchAnimatedComponent} from "@/components/switchBox"
 import {YouTubeEmbed} from "@/components/YoutubeEmbed"
@@ -159,7 +160,7 @@ export default async function Fitur(props: Props) {
           <div className="text-[#4a0700]">
             Itinerarios
           </div>
-          <CardPortada />
+          <CardDias />
         </div>
       </BoxSection>
       <BoxSection half className="bg-gray-200">
