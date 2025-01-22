@@ -1,0 +1,8 @@
+.gradient_h2 {
+  font-weight: bold;
+  /* Grosor */
+  background: linear-gradient(90deg, #EFB810 0%, #896909 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

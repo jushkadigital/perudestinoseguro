@@ -156,10 +156,7 @@ export default async function Fitur(props: Props) {
       </BoxSection>
 
       <BoxSection full className="bg-[#efb810]">
-        <div className="h-[40rem] flex flex-col items-center justify-center w-full">
-          <div className="text-[#4a0700]">
-            Itinerarios
-          </div>
+        <div className="h-screen flex flex-col items-center justify-center w-full">
           <CardDias />
         </div>
       </BoxSection>
