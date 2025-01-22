@@ -2,6 +2,10 @@ import React from "react";
 import Image from "next/image"
 import styles from "./cardDias.module.css"
 import { cn } from "@/lib/utils";
+
+
+
+
 export const CardDias = () => {
 
 
@@ -73,7 +77,7 @@ export const CardDias = () => {
                 <div className="w-1/3 text-3xl text-[#C2A66B]">DÍA 1</div><div className="w-2/3"> <div className="text-xs italic text-white">Inicia: 00:00 </div> <div className="text-xs italic text-white" >termina: 00:00 </div> </div>
               </div>
               <div className="flex flex-row items-start">
-                <div className=" w-2/3 bg-[#c2a66b] border-none rounded-[62.64px] text-xl"> LLEGADA A LIMA</div>
+                <div className=" w-2/3 bg-[#c2a66b] border-none rounded-[62.64px] text-xl font-semibold text-center"> LLEGADA A LIMA</div>
               </div>
             </div>
             <div className="h-[55%]">
@@ -109,7 +113,7 @@ export const CardDias = () => {
 
               </div>
               
-            <div className="h-[25%] bg-red-800"></div>
+            <div className="h-[25%] "></div>
           </div>
         </div>
 

@@ -157,7 +157,8 @@ export default async function Fitur(props: Props) {
 
       <BoxSection full className="bg-[#efb810]">
         <div className="h-screen flex flex-col items-center justify-center w-full">
-          <CardDias />
+          <CardPortada/>
+          {/* <CardDias /> */}
         </div>
       </BoxSection>
       <BoxSection half className="bg-gray-200">
