@@ -17,8 +17,8 @@ import { MotionImageComponent } from '@/components/componentsClient'
 import Image from "next/image"
 import { ThreeDCardDemo } from '@/components/macroComponent/imageAnimationCard'
 import { FormAgenciar } from '@/components/macroComponent/formFitur'
-import {CardPortada} from "@/components/anima/cardPortada.tsx"
-import {CardDias} from "@/components/anima/cardDias.tsx"
+import {CardPortada} from "@/components/anima/cardPortada"
+import {CardDias} from "@/components/anima/cardDias"
 import {TextClient} from "@/components/textClient"
 import {SwitchAnimatedComponent} from "@/components/switchBox"
 import {YouTubeEmbed} from "@/components/YoutubeEmbed"
@@ -99,6 +99,7 @@ export default async function Fitur(props: Props) {
   console.log(seccion3One)
   console.log(seccion3Two)
   return (
+    
     <SnapScrolling>
       <BoxSection full animation="right" className="bg-gray-200">
         <div className="w-full flex flex-col lg:flex-row gap-y-10 lg:gap-y-0">
