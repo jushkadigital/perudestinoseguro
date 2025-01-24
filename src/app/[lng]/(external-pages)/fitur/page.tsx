@@ -161,7 +161,7 @@ export default async function Fitur(props: Props) {
           {/* <CardDias /> */}
         </div>
       </BoxSection>
-      <BoxSection half className="bg-gray-200">
+      <BoxSection half animation='scale' className="bg-gray-200">
         <div className="h-full flex flex-col justify-around lg:justify-start">
         <div className=" flex flex-col items-center justify-center w-full gap-y-10 lg:gap-y-6">
           <div className="text-black text-[35px] lg:text-[50px] font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
@@ -178,7 +178,7 @@ export default async function Fitur(props: Props) {
 
       </BoxSection>
 
-        <BoxSection half className="bg-gray-200">
+        <BoxSection half animation='scale' className="bg-gray-200">
         <div className="h-[40rem] flex flex-col items-center justify-center w-full gap-y-10 lg:gap-y-6">
           <div className="text-black text-[35px] lg:text-[50px] font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
 
@@ -207,7 +207,7 @@ export default async function Fitur(props: Props) {
 
       </BoxSection>
 
-      <BoxSection full className="bg-gray-200">
+      <BoxSection full animation='scale' className="bg-gray-200">
       <div className="w-full h-full flex flex-col lg:flex-row justify-center gap-y-10 lg:gap-y-0">
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center gap-y-6"> 
           <div className="w-[250px] flex flex-row gap-x-4">
@@ -231,7 +231,7 @@ export default async function Fitur(props: Props) {
         </div>
         <div className="w-full lg:w-1/2 bg-[#4a0700]  flex flex-row justify-around items-center"> 
             <Image src="/isologo-one.png" width={73} height={100} alt="aa" className="" />
-           <FormAgenciar />
+           <FormAgenciar lng={params.lng} />
             <Image src="/isologo-one.png" width={73} height={100} alt="aa" className="" />
         </div>
       </div>

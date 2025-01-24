@@ -34,7 +34,8 @@ children: React.ReactNode
   const vari:{[key:string]:any} = {
   "scale": CHILD_VARIANTS_SCALE,
   "left": CHILD_VARIANTS_LEFT,
-  "right": CHILD_VARIANTS_RIGHT
+  "right": CHILD_VARIANTS_RIGHT,
+  "undefined": undefined
   }
 
 
@@ -44,7 +45,7 @@ export const BoxSection = ({
   full = false,
   half = false,
   once = false,
-  animation = "scale",
+  animation = "undefined",
   children
 }:Props) => {
   const isMobile = useMobile()

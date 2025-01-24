@@ -1,6 +1,6 @@
 import CustomCarousel from '@/components/customCarousel'
 import ProfileCard from '@/components/cardPaquetes'
-import {getDestinos, getInicioPage,getPaquete} from '@/app/lib/wp'
+import { getDestinos, getInicioPage, getPaquete } from '@/app/lib/wp'
 import Questions from '@/components/questions'
 import { RevealBento } from '@/components/gridDestino'
 import { createTranslation } from '../../../../i18next'
@@ -10,17 +10,34 @@ import MotionElement from "@/components/clientExportElement"
 import AgenciaForm from '@/components/formAgencio'
 import { AccordionShad } from '@/components/accordionShad'
 import { CarouselPrincipalShad } from '@/components/carouselPrincipalShad'
-import { myFetch,APIBACK } from '@/lib/utils'
+import { myFetch, APIBACK } from '@/lib/utils'
+import SnapScrolling from '@/components/macroComponent/snapScroll'
+import { Box } from 'lucide-react'
+import { BoxSection } from '@/components/boxSection'
+import Image from "next/image"
+import { YouTubeEmbed } from '@/components/YoutubeEmbed'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Markdown from "markdown-to-jsx";
+import FAQSection from '@/components/macroComponent/faq'
+
+
+
 
 type Props = {
   params: Promise<{
-    lng:string
+    lng: string
   }>
 }
 
-async function getPageData(slug:string,lng:LocaleType){
+async function getPageData(slug: string, lng: LocaleType) {
 
-  const instance =  await myFetch("inicio",{locale:lng},{})
+  const instance = await myFetch("inicio", { locale: lng }, {})
 
   // const idInstance = instance.items[0].id
 
@@ -37,95 +54,56 @@ async function getPageData(slug:string,lng:LocaleType){
 }
 
 export default async function Home(props: Props) {
+
   const params = await props.params;
-  // let paquetes: any[] = await getAllPaquetes()
-  // paquetes = paquetes.reverse()
-  // // paquetes = paquetes.map(ele => ele.acf).reverse()
 
-  // let destinos: any[] = await getAllDestinos()
-  // destinos = destinos.map(ele => ele.acf).reverse()
+  const { t } = await createTranslation(params.lng, 'home')
 
-  // let imgCarousels: any[] = await getAllImgCarousel()
-  // imgCarousels = imgCarousels.map(ele => ele.acf)
+  //const destinos = await myFetch("destinos",{populate:"*"},{})
 
-  // let pregFrecuents: any[] = await getAllPregFrecuentes()
-  // pregFrecuents = pregFrecuents.map(ele => ele.acf).reverse()
-  // // console.log(paquetes)
-  // console.log(imgCarousels);
-  // console.log(pregFrecuents);
+  console.log(t('BeneficiosSeccion.beneficio', { returnObjects: true }))
 
 
+  console.log(t('Testimonios.testimonio', { returnObjects: true }))
 
-  const {t} = await createTranslation(params.lng,'inicio')
+  const str = t('cuadroComparativo.cuadro')
 
+  const CustomTable = (props: React.TableHTMLAttributes<HTMLTableElement>) => (
+    <table style={{ border: "1px solid black", borderCollapse: "collapse" }} {...props} />
+  );
 
+  function splitByIndex<T>(items: T[]): { evenIndex: T[]; oddIndex: T[] } {
+    return items.reduce(
+      (acc, item, index) => {
+        if (index % 2 === 0) {
+          acc.evenIndex.push(item);
+        } else {
+          acc.oddIndex.push(item);
+        }
+        return acc;
+      },
+      { evenIndex: [], oddIndex: [] } as { evenIndex: T[]; oddIndex: T[] }
+    );
+  }
+  
+  function toQA(arr:any[]){
+      return arr.map(ele => (
+    { question: ele.pregunta, answer: ele.respuesta }
+      ))
+  }
 
-  // const dataGeneral = await getInicioPage()
-
-  // const instance =  await myFetch("inicio",{locale:lng},{})
-  const destinos = await myFetch("destinos",{populate:"*"},{})
-
-  // const paquetes = await getPaquetes(['featuredImage','precio','duracion'])
-
-  // const paquetes = await getPaquete({fields:"featuredImage,precio,duracion",locale:params.lng,sss:"nocampaing",sender:"2"})
-  // console.log(dataGeneral)
-  // const gallery = 
-  // const gallery = dataGeneral.galleryInicio.map(ele=>({img:ele.image.meta.download_url,titulo:ele.carouselTitulo,duracion:ele.carouselDuracion}))
-
-
-  // const {InicioPage , related} = await getPageData("inicio",params.lng)
-
-  console.log(t('galleriaCarousel',{returnObjects:true}))
-
-  const removeAccents = (str) => {
-    return str
-      .normalize("NFD") // Descompone los caracteres con acentos
-      .replace(/([aeiouAEIOU])[\u0300-\u036f]/g, "$1") // Elimina los acentos solo de las vocales
-      .normalize("NFC"); // Recomponer los caracteres
-  };
-  const order = ["cusco","lima","arequipa","puno","ica"]
-
-  console.log(destinos.data[0].background)
-  const destinosF = destinos.data.sort((a, b) => {
-  return order.indexOf(a.name.toLowerCase()) - order.indexOf(b.name.toLowerCase());
-  });
-
-  const urlsDestinos = destinosF.map(ele=>( ele.name.toLowerCase()))
-
-  const keyframes = { x: [], y: [], rotate: [] };
-  const keyframes2 = { x: [], y: [], rotate: [] };
-  const generateKeyframes = () => {
-    for (let t = -0.25; t <= 2 * Math.PI; t += 0.1) {
-      keyframes.x.push(100 * Math.sin(2 * t) - 30); // Example: double frequency for x
-      keyframes2.x.push(100 * Math.cos(t) + 500); // Example: double frequency for x
-      keyframes.y.push(100 * Math.cos(t) + 50); // Single frequency for y
-      keyframes2.y.push(100 * Math.sin(2 * t) + 500)
-    }
-    for (let i = 0; i < keyframes.x.length ; i++) {
-      const dx = keyframes.x[i + 1] - keyframes.x[i];
-      const dy = keyframes.y[i + 1] - keyframes.y[i];
-      const angle = Math.atan2(dy, dx);
-      const degrees = (angle * 180) / Math.PI; // Convert to degrees
-      keyframes.rotate.push(degrees);
-    }
-    // Add the last rotation value to make the array lengths match
-    keyframes.rotate.push(keyframes.rotate[keyframes.rotate.length - 1]);
-    return keyframes;
-  };
-
-  generateKeyframes();
-
-
-
+  const {evenIndex,oddIndex} = splitByIndex((t('FAQSeccion.faq', { returnObjects: true }) as any[]))
   return (
-    <div className="flex flex-col items-center w-full">
-      
+
+    <SnapScrolling>
+
+
       {/* <SwitcherGlobal currentLocale={params.lng}  dynamicLinks={related} slug={undefined}/> */}
       {/*<CustomCarousel data={t('galleryIni',{returnObjects:true})} keyframes={keyframes} keyframes2={keyframes2} ></CustomCarousel>*/}
-      <CarouselPrincipalShad data={t('galleriaCarousel',{returnObjects:true})} keyframes={keyframes} keyframes2={keyframes2}/>
+      {/* <CarouselPrincipalShad data={t('galleriaCarousel',{returnObjects:true})} keyframes={keyframes} keyframes2={keyframes2}/> */}
       {/* <SessionProvider> */}
       {/* <SessionValidator>GAAAAAAAA</SessionValidator> */}
-      <MotionElement
+      {/*<MotionElement
         as="h2"
         initial={{ opacity: 0 ,translateY: 200}}
         whileInView={{ opacity: 1 ,translateY: 0}}
@@ -134,56 +112,169 @@ export default async function Home(props: Props) {
         className="subtitle w-fit lg:text-[34px] text-[20px] lg:text-3xl
        my-[20px] lg:my-[50px] p-3 text-center font-semibold text-gray-800  lg:mb-10"> 
         {t('tituloPaquete')}
-      </MotionElement>
+      </MotionElement>*/}
 
-      <MotionElement
-        as="div"
-        initial={{ opacity: 0 ,translateY: 200}}
-        whileInView={{ opacity: 1 ,translateY: 0}}
-        transition={{duration:1,type:'spring'}}
-        // viewport={{margin:"100px 0px 0px 0px"}}
-        className=" grid lg:grid-cols-3 lg:gap-3 justify-items-center w-10/12 grid-cols-1  lg:gap-x-24 lg:pl-0 gap-y-10">
-      </MotionElement>
-      <MotionElement 
-        as="h2"
-        initial={{ opacity: 0 ,translateY: 200}}
-        whileInView={{ opacity: 1 ,translateY: 0}}
-        transition={{duration:1,type:'spring'}}
-        className="subtitle w-fit text-[20px] lg:text-[34px] text-3xl my-[50px] p-3 text-center font-semibold text-gray-800 mb-5 lg:mb-10"> 
-        {t('tituloDestino')}
-      </MotionElement>
+      <BoxSection full className=''>
+        <div className='relative w-full h-full overflow-hidden'>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          >
+            <source src={APIBACK + t('video.videoFile.url')} type="video/mp4" />
+            Tu navegador no soporta el video.
+          </video>
 
-    <RevealBento img={{ imgSrc: APIBACK + destinosF[0].background.url,imgMobileSrc: APIBACK + destinosF[0].backgroundMobile.url,label:destinosF[0].name}} imgs={destinosF.slice(1,destinosF.length).map(ele=>({imgSrc:APIBACK + ele.background.url,imgMobileSrc: APIBACK + ele.backgroundMobile.url,label:ele.name}))} lng={params.lng} urls={urlsDestinos} />
+          {/* Texto centrado */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+            <h1 className="text-4xl font-bold md:text-6xl">{t('video.textoTwo')}</h1>
+          </div>
 
-    <MotionElement 
-        as="div"
-        initial={{ opacity: 0 ,translateY: 200}}
-        whileInView={{ opacity: 1 ,translateY: 0}}
-        transition={{duration:1,type:'spring'}}
-        // viewport={{margin:"100px 0px 0px 0px"}}
-        // viewport={{amount:0.3}}
-        className="w-full">
-      <div className="flex lg:flex-row flex-col w-full lg:w-[90%] mx-auto mt-10">
-        <div className="lg:w-1/2 w-full flex flex-col items-center">
-          <h3 className="my-3 mb-9 lg:my-9 text-[20px] lg:text-[24px] text-[#5B5B5F] lg:text-[#000000] font-semibold text-center lg:no-underline underline underline-offset-8 decoration-red-900 capitalize ">Preguntas Frecuentes</h3>
-
-          {/*<Questions questionAnswer={(t('faqInicio',{returnObjects:true})).map(ele=>({question:ele.question ,answer: ele.answer}))} />*/}
-
-          {<AccordionShad questionAnswer={(t('faq',{returnObjects:true})).map(ele=>({question:ele.pregunta ,answer: ele.respuesta[0].children[0].text}))}/>}
-
+          {/* Overlay para mejorar el contraste */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
-        <div className="lg:w-1/2 w-full p-10 lg:p-0 ">
-          <h2 className="lg:mt-9 mt-6 font-bold lg:text-[24px] text-[#5C5C5C]">
-            {t('formularioTitulo')}
-          </h2>
-          <p className="text-left pr-10 my-3 font-normal text-[18px] text-[#989898]">
-            {t('formularioSubtitulo')}
-          </p>
-          <AgenciaForm lng={params.lng} />
+      </BoxSection>
+      <BoxSection full animation='scale' className=''>
+        <div className="h-[40rem] flex flex-col items-center justify-center  gap-y-10 lg:gap-y-6 w-[85%] mx-auto">
+          <div className="text-black text-[35px] lg:text-[50px] font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
+            <Image src={"/isologo-04.png"} width={100} height={73} alt="oaoe" />
+            <div className="font-custom ">
+              BENEFICIOS - VENTAJAS
+            </div>
+          </div>
+          <div className='flex flex-row w-full'>
+            <div className="w-2/3 grid grid-cols-3 gap-4">
+              {
+                (t('BeneficiosSeccion.beneficio', { returnObjects: true }) as any[]).map((ele, idx) => (
+                  <div key={idx} className={"w-[250px] h-[200px]  max-w-sm mx-auto bg-white shadow-lg rounded-[10px] overflow-hidden flex flex-col justify-center items-center gap-y-3"}>
+                    <div id="header" className="flex flex-row text-3xl font-semibold">  <span className="block"> <Image src={APIBACK + ele.logo.url} alt="ao" width={50} height={38} /></span> </div>
+                    <div id="body" className="text-[#4a0700] max-w-[150px] text-[1.3rem] font-semibold font-custom text-center"> {ele.beneficio} </div>
+                  </div>
+                ))
+
+              }
+            </div>
+            <div className='w-1/3 flex flex-col justify-center'>
+              <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" />
+            </div>
+
+          </div>
+          <div className="flex flex-row gap-x-10">
+          </div>
         </div>
-      </div>
-      </MotionElement>
-    </div>
+      </BoxSection>
+      <BoxSection full className=''>
+        <div className='w-full h-full relative'>
+          <Image src={APIBACK + t('Testimonios.background.url')} alt="" fill className='object-cover' />
+          <div className='absolute w-full h-full'>
+            <div className="w-[88%] mx-auto h-full">
+              <div className='h-1/2 flex flex-row'>
+                <div className='w-[45%] flex flex-col justify-center'>
+                  <div className="w-2/3 text-white text-[78px]  font-bold flex flex-col lg:flex-row mt-4 items-center gap-x-4">
+                    <div className="font-custom ">
+                      {t('Testimonios.title')}
+                    </div>
+                    <Image src={"/isologo-04.png"} width={100} height={73} alt="oaoe" />
+                  </div>
+                </div>
+                <div className='w-[55%] flex flex-col justify-center'>
+                  <div className='h-[80%]'>
+                    <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" />
+                  </div>
+                </div>
+              </div>
+              <div className='h-1/2 flex flex-col justify-center'>
+                <Carousel className="w-full max-w-[90%] ">
+                  <CarouselContent className="-ml-1 ">
+                    {(t('Testimonios.testimonio', { returnObjects: true }) as any[]).map((ele, idx) => (
+                      <CarouselItem key={idx} className='p-1 basis-1/2 flex flex-col items-center' >
+                        <div className="relative w-[66%] aspect-video ">
+                          <div className='absolute w-[200px] h-[100px] bottom-0 bg-[#4a0700] rounded-3xl'></div>
+                          <div className='absolute w-[45%] h-[45px] bottom-0  bg-[#4a0700] rounded-3xl z-20 text-white text-center align-'> {ele.name} </div>
+                          <div className='absolute w-full h-full  bg-yellow-400 rounded-3xl transform translate-x-[20px]'>
+                            <div className="bg-white w-[97%] h-[97%] mx-auto my-[3px] rounded-3xl flex justify-center items-center text-justify">
+                              <p className='w-1/2'> {ele.description}</p></div>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BoxSection>
+      <BoxSection full className=''>
+        <div className='w-full h-full relative'>
+          <div className='flex flex-col justify-center h-full'>
+            <div className=" w-[85%] mx-auto ">
+              <div>
+                <div className='flex flex-row '>
+                  <div className='w-[25%] flex flex-row justify-center'>
+                    <Image src={"/peruLogo.svg"} width={250} height={250} alt="logo" className='' />
+                  </div>
+                  <div className='w-[75%] border-4 border-yellow-500 rounded-lg text-[#9E4848] font-custom text-[30px] font-bold'>
+                    <div className='w-2/3 mx-auto'>
+                      <span className='text-yellow-500 font-black text-4xl'>//</span>
+                      {t('cuadroComparativo.titulo')}
+                    </div>
+                  </div> </div>
+                <Markdown options={
+                  {
+                    overrides: {
+                      table: {
+                        props: {
+                          className: "comparison-table",
+                        },
+                      },
+                      th: {
+                        props: {
+                          className: "table-header",
+                        },
+                      },
+                      td: {
+                        props: {
+                          className: "table-cell",
+                        },
+                      },
+                      tr: {
+                        props: {
+                          className: "table-row",
+                        },
+                      },
+                    },
+                  }
+                }>{str}</Markdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BoxSection>
+      <BoxSection full className=''>
+        <div className='w-full h-full'>
+          <div className='flex flex-col justify-center h-full'>
+          <div className='w-[85%] mx-auto'>
+            <div className='flex flex-row justify-center'><div className='w-[40%] text-[39px] font-custom flex flex-row justify-center items-center text-[#9E4848]'> {t('FAQSeccion.titulo')} <Image src={"/isologo-04.png"} width={40} height={20} alt="logo" className='h-[20px]' /> </div></div>
+                    
+            <div className='flex flex-row w-full'>
+              <div className='w-1/2'>
+              <FAQSection faqs={toQA(oddIndex)} />
+              </div>
+              <div className="w-1/2">
+              <FAQSection faqs={toQA(evenIndex)} />
+              </div>
+
+            </div>
+          </div>
+          </div>
+        </div>
+      </BoxSection>
+    </SnapScrolling>
   )
 }
 
