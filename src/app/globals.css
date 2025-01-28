@@ -405,6 +405,10 @@ padding-right:1.25rem;
   background-color: #f7f7f7;
 }
 
+.table-headerNone {
+  display: none;
+}
+
 .table-row-title {
   font-weight: bold;
   background-color: #ffffff;

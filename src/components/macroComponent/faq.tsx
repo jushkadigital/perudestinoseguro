@@ -36,7 +36,7 @@ const faqs: FAQItem[] = [
 const FAQItem = ({ item, isOpen, toggleOpen }: { item: FAQItem; isOpen: boolean; toggleOpen: () => void }) => (
   <div className="border-b border-gray-200 last:border-b-0">
     <button
-      className="flex flex-row w-full items-center justify-center py-4 text-left text-lg font-medium focus:outline-none hover:bg-gray-50 transition-colors duration-200"
+      className="h-[70px] flex flex-row w-full items-center justify-center py-4 text-left text-lg font-medium focus:outline-none hover:bg-gray-50 transition-colors duration-200"
       onClick={toggleOpen}
       aria-expanded={isOpen}
     >
@@ -47,7 +47,7 @@ const FAQItem = ({ item, isOpen, toggleOpen }: { item: FAQItem; isOpen: boolean;
         transition={{ duration: 0.3 }}
         className="flex items-center justify-center"
       >
-        <ChevronDown className="h-6 w-6 text-blue-500" />
+        <ChevronDown className="h-6 w-6 text-yellow-500" />
       </motion.div>
         </div>
       

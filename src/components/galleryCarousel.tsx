@@ -4,15 +4,19 @@ import React, { useState } from 'react';
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
 import { ImagePopUp } from "./imagePopUp";
 
-export const GalleryCarrousel = ({
-  srcImages,
-  srcLabelImages,
-  label
-}: {
-  srcImages: string[],
-  srcLabelImages: any[],
-  label: boolean
-}) => {
+
+interface Props<T> {
+  data: T[]; // Un array de cualquier tipo de datos
+  renderItemDesktop: React.ComponentType<{ item: T }>; // Componente dinámico para renderizar cada item
+  gridColumns: number
+}
+
+
+export const GalleryCarrousel = <T,>({
+  data,
+  renderItemDesktop: ItemComponent,
+  gridColumns
+}: Props<T>) => {
 
   // const [count, setCount] = useState(initialCount);
   const [LayoutId, setLayoutId] = useState<number | null>(null)
@@ -41,39 +45,20 @@ export const GalleryCarrousel = ({
 
 
   return (
-    <div className=" h-full">
+    <div className=" h-full w-full flex flex-row justify-center">
 
       <LayoutGroup>
-        {label ?
-          <div className="grid grid-cols-3 gap-y-3 gap-x-2 w-full">
-            {srcLabelImages.map((ele, idx) => (<motion.div  className={`relative  rounded-2xl relative max-h-max shrink-0 overflow-hidden `} onClick={() => poper(idx)} ><motion.img  whileHover="hover" transition={{
-                duration: 1,
-                ease: "easeOut",
-              }}
-              variants={{
-                hover: {
-                  scale: 1.05,
-                  // opacity:2,
-                },
-              }} loading="lazy" decoding="async" src={ele.src} alt="gaa" className="object-cover rounded-2xl" /><p className="absolute bottom-5 left-2 text-white text-3xl font-bold">{ele.label}</p></motion.div>))}
+        
+          <div className={`grid grid-cols-${gridColumns} gap-y-3 gap-x-2 w-full`}>
+            {data.map((ele, idx) => (<motion.div  key={idx} className={`relative  rounded-2xl  max-h-max shrink-0 overflow-hidden`} onClick={() => poper(idx)} >
+              
+              <ItemComponent item={ele}/>
+            </motion.div>))}
           </div>
-          :
-          <div className="grid grid-cols-3 gap-y-3 gap-x-2 w-full">
-            {srcImages.map((ele, idx) => (<motion.div  className={`relative  rounded-2xl relative max-h-max shrink-0 overflow-hidden`} onClick={() => poper(idx)} ><motion.img  whileHover="hover" transition={{
-                duration: 1,
-                ease: "easeOut",
-              }}
-              variants={{
-                hover: {
-                  scale: 1.05,
-                },
-              }}  src={ele} alt="gaa" className="object-cover rounded-2xl" /></motion.div>))}
-          </div>
-
-        }
+        
         <div className="popUp">
           <AnimatePresence>
-            {popUp && <ImagePopUp poper={poper} LayoutId={LayoutId} miniTabsSrc={label ? srcLabelImages : srcImages} lengthArr={label ? srcLabelImages.length : srcImages.length} label={label} />}
+            {popUp && <ImagePopUp poper={poper} LayoutId={LayoutId} miniTabsSrc={data} lengthArr={data.length}  />}
           </AnimatePresence>
         </div>
       </LayoutGroup>

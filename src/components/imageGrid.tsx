@@ -6,18 +6,33 @@ import { ImagePopUp } from './imagePopUp';
 import { SwipeCarousel } from "./swiperCarousel";
 import { GalleryCarrousel } from "./galleryCarousel";
 import { useMobile } from '@/hooks/useMobile';
+import { Carousel, CarouselContent, CarouselItem } from './ui/carousel';
 
-export default function ImageGrid({
-  srcImages=[],
-  srcLabelImages=[],
-  label
-}: {
-  srcImages?: string[],
-  srcLabelImages?: any[],
-  label:boolean,
-}) {
-  
+interface Props<T> {
+  data: T[]; // Un array de cualquier tipo de datos
+  renderItemDesktop: React.ComponentType<{ item: T }>; // Componente dinámico para renderizar cada item
+  renderItemMobile: React.ComponentType<{ item: T }>; // Componente dinámico para renderizar cada item
+  gridColumns:number
+}
+
+export  const ImageGrid =<T,>({
+  data,
+  renderItemDesktop: ItemComponent,
+  renderItemMobile: ItemComponent2,
+  gridColumns
+}: Props<T>)=>
+  {
+
   const isMobile = useMobile()
-  console.log(isMobile)
-  return isMobile ? <SwipeCarousel imgs={srcImages} labelImgs={srcLabelImages} label={label}  />  : <GalleryCarrousel srcImages={srcImages} srcLabelImages={srcLabelImages} label={label}/>
+  return isMobile ?  
+  <Carousel>
+    <CarouselContent>
+    {data.map((ele, index) => (
+      <CarouselItem key={index}>
+        <ItemComponent2 item={ele}/>
+      </CarouselItem>
+    ))}
+    </CarouselContent>
+    </Carousel>
+  : <GalleryCarrousel data={data} renderItemDesktop={ItemComponent} gridColumns={gridColumns} />
 }

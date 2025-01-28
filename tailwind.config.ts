@@ -7,6 +7,11 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    {
+      pattern: /grid-cols-(1[0-2]|[1-9])/, // Genera clases para grid-cols-1 a grid-cols-12
+    },
+  ],
   theme: {
   	extend: {
   		fontFamily: {
