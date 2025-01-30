@@ -34,9 +34,9 @@ const faqs: FAQItem[] = [
 ]
 
 const FAQItem = ({ item, isOpen, toggleOpen }: { item: FAQItem; isOpen: boolean; toggleOpen: () => void }) => (
-  <div className="border-b border-gray-200 last:border-b-0">
+  <div className="border-b border-gray-300 last:border-b-0">
     <button
-      className="h-[70px] flex flex-row w-full items-center justify-center py-4 text-left text-lg font-medium focus:outline-none hover:bg-gray-50 transition-colors duration-200"
+      className="h-[70px] flex flex-row w-full items-center justify-center py-4 text-left text-[14px] lg:text-lg font-medium focus:outline-none hover:bg-gray-50"
       onClick={toggleOpen}
       aria-expanded={isOpen}
     >
@@ -58,12 +58,12 @@ const FAQItem = ({ item, isOpen, toggleOpen }: { item: FAQItem; isOpen: boolean;
           initial="collapsed"
           animate="open"
           exit="collapsed"
-          className="p-4 text-[#9E4848]"
+          className="p-4 text-[#9E4848] text-[10px] lg:text-[15px]"
           variants={{
-            open: { opacity: 1, height: "auto", marginBottom: 16 },
-            collapsed: { opacity: 0, height: 0, marginBottom: 0 },
+            open: { opacity: 1, height: "100%" },
+            collapsed: { opacity: 0, height: 0 },
           }}
-          transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+          transition={{ duration: 0.3 ,ease: "easeIn"}}
         >
             <BlockRendererClient content={item.answer}/>
         </motion.div>
@@ -80,7 +80,7 @@ export default function FAQSection({faqs}:{faqs:FAQItem[]}) {
   }
 
   return (
-    <section className="py-12 bg-gray-50 w-full">
+    <section className="lg:py-0 bg-gray-50 w-full">
       <div className="container mx-auto">
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           {faqs.map((faq, index) => (

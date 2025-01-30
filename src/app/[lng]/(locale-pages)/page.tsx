@@ -13,7 +13,7 @@ import { CarouselPrincipalShad } from '@/components/carouselPrincipalShad'
 import { myFetch, APIBACK } from '@/lib/utils'
 import SnapScrolling from '@/components/macroComponent/snapScroll'
 import { Box } from 'lucide-react'
-import { BoxSection } from '@/components/boxSection'
+import { BoxSection, BoxSectionAnim } from '@/components/boxSection'
 import Image from "next/image"
 import { YouTubeEmbed } from '@/components/YoutubeEmbed'
 import {
@@ -27,11 +27,17 @@ import Markdown from "markdown-to-jsx";
 import FAQSection from '@/components/macroComponent/faq'
 import { DestinosCarousel } from '@/components/macroComponent/destinosCarousel'
 import { ImageGrid } from '@/components/imageGrid'
-import { DesktopComponentImageGrid, MobileComponentImageGrid } from '@/components/paramComponents/imageGridParams'
+import { DesktopComponentImageGrid, MobileComponentImageGrid, VerticalCardStack } from '@/components/paramComponents/imageGridParams'
 import { PartnersCarousel } from '@/components/macroComponent/partnerCarousel'
 import { SocialIcon } from 'react-social-icons/component'
 import SvgWhatsapp from '@/components/icons/whatsapp'
 import { Youtube } from 'lucide-react';
+import { BallDomino } from '@/components/testComponent/ballDomino'
+import { TestScrollContainer } from '@/components/macroComponent/testScroll'
+import Link from "next/link";
+import { BeneficioSwitch } from '@/components/beneficioSwitch'
+import { ImageResponsive } from '@/components/ui/ImageResponsive'
+import Triangle from '@/components/ui/trianguloDiv'
 
 
 type Props = {
@@ -100,7 +106,8 @@ export default async function Home(props: Props) {
   function splitByIndex<T>(items: T[]): { evenIndex: T[]; oddIndex: T[] } {
     return items.reduce(
       (acc, item, index) => {
-        if (index % 2 === 0) {
+        
+        if ((index + 1)  % 2 === 0) {
           acc.evenIndex.push(item);
         } else {
           acc.oddIndex.push(item);
@@ -130,6 +137,10 @@ export default async function Home(props: Props) {
     featuredImage: APIBACK + ele.featuredImage.url,
     fullImage: APIBACK + ele.finalImage.url
   }))
+
+  const instance = await myFetch("informacion-general",{} , {})
+  
+  console.log(instance)
   return (
 
     <SnapScrolling>
@@ -151,7 +162,7 @@ export default async function Home(props: Props) {
         {t('tituloPaquete')}
       </MotionElement>*/}
 
-      <BoxSection full className=''>
+      <BoxSection custom="equal" className=''>
         <div className='relative w-full h-full overflow-hidden'>
           <video
             autoPlay
@@ -166,16 +177,18 @@ export default async function Home(props: Props) {
 
           {/* Texto centrado */}
           <div className="absolute top-0 left-0 w-full h-screen z-10 ">
-            <div className='h-[86%] w-full flex flex-col items-center justify-center text-center text-white'>
-            <h1 className="text-[109px] font-custom ">{t('video.textoTwo')}</h1>
+            <div className='h-[57.5%] lg:h-[86%] w-full flex flex-col items-center justify-center text-center text-white'>
+            <h1 className="text-[62px] lg:text-[109px] font-custom ">{t('video.textoTwo')}</h1>
             </div>
-            <div className='h-[14%] flex flex-col items-center'>
-              <div className='w-[86.5%]'>
-                <div className='bg-[#EFB916] w-[150px] h-[45px] rounded-[17px] font-bold text-[20px] text-white flex flex-row justify-center items-center gap-x-2'>
+            <div className='h-[42.5%] lg:h-[14%] flex flex-col items-center'>
+              <div className='w-full lg:w-[86.5%] flex flex-row lg:flex-col justify-center'>
+                <Link href={instance.data.whatsapp}  target="_blank" rel="noopener noreferrer" className='bg-[#EFB916] w-[115px] lg:w-[150px] h-[30px] lg:h-[45px] rounded-[17px] font-bold text-[15px] lg:text-[20px] text-white flex flex-row justify-center items-center gap-x-2'>
                   Chat <SvgWhatsapp  className="w-4 h-4 text-blue-500" />
-                  </div>
-                  <div className='text-white w-[150px] flex flex-row justify-evenly'>
+                  </Link>
+                  <Link href={instance.data.youtube}  target="_blank" rel="noopener noreferrer"  className='text-white text-[15px] lg:text-[20px] w-[115px] lg:w-[150px] flex flex-row justify-evenly items-center'>
                   Conócenos <Youtube/>
+                  </Link>
+                  <div>
                   </div>
               </div>
                </div>
@@ -186,27 +199,35 @@ export default async function Home(props: Props) {
         </div>
       </BoxSection>
       <BoxSection full animation='scale' className=''>
-        <div className="h-[40rem] flex flex-col items-center justify-center  gap-y-10 lg:gap-y-6 w-[85%] mx-auto">
+        <div className=" flex flex-col items-start lg:items-center lg:justify-center  gap-y-10 lg:gap-y-6  mx-auto h-full">
           
-           <div className='w-full flex flex-row justify-center items-center'>   
-              <div className='w-[80%] text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
-              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='h-[40px]' />
+           <div className='mt-10 lg:mt-0 w-full flex flex-row justify-center items-center'>   
+              <div className='w-[80%] text-[35px] lg:text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
+              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='w-[30px] lg:w-[100px] h-[13px] lg:h-[40px]' />
               {t('BeneficiosSeccion.titulo')}             </div>
               </div>
-          <div className='flex flex-row w-full'>
+          <div className='flex flex-col-reverse items-start lg:flex-row w-full h-1/2'>
+            <BeneficioSwitch items={t('BeneficiosSeccion.beneficio', { returnObjects: true }) as any[]} 
+                              renderItem={VerticalCardStack}
+                              className=''
+            >
             <div className="w-2/3 grid grid-cols-3 gap-4">
               {
                 (t('BeneficiosSeccion.beneficio', { returnObjects: true }) as any[]).map((ele, idx) => (
                   <div key={idx} className={"w-[250px] h-[200px]  max-w-sm mx-auto bg-white shadow-lg rounded-[10px] overflow-hidden flex flex-col justify-center items-center gap-y-3"}>
                     <div id="header" className="flex flex-row text-3xl font-semibold">  <span className="block"> <Image src={APIBACK + ele.logo.url} alt="ao" width={50} height={38} /></span> </div>
+                    <Image src={"/isologo-04.png"} alt="ao" width={50} height={38}/>
+
                     <div id="body" className="text-[#4a0700] max-w-[150px] text-[1.3rem] font-semibold font-custom text-center"> {ele.beneficio} </div>
                   </div>
                 ))
 
               }
             </div>
-            <div className="w-1/3 h-full flex flex-col justify-center items-center">
-              <div className=' w-full h-36'>
+
+            </BeneficioSwitch>
+                        <div className="w-full lg:w-1/3 h-56 lg:h-full flex flex-col justify-start lg:justify-center items-center">
+              <div className=' w-[90%] mx-auto h-[220px]'>
               <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" />
             </div>
 
@@ -218,34 +239,34 @@ export default async function Home(props: Props) {
           </div>
         </div>
       </BoxSection>
-      <BoxSection full className=''>
+      <BoxSection custom='equal' className=''>
         <div className='w-full h-full relative'>
           <Image src={APIBACK + t('Testimonios.background.url')} alt="" fill className='object-cover' />
           
           <div className='absolute inset-0 bg-black bg-opacity-40'></div>
           <div className='absolute w-full h-full'>
             <div className="w-[88%] mx-auto h-full">
-              <div className='h-1/2 flex flex-row'>
-                <div className='w-1/2 flex flex-col justify-center'>
-                  <div className="w-2/3 text-white text-[78px]  flex flex-col lg:flex-row justify-end mt-4 items-center gap-x-4">
+              <div className='h-[150px] lg:h-1/2 flex flex-row justify-end'>
+                <div className='w-full lg:w-1/2 flex flex-col justify-center'>
+                  <div className="w-full lg:w-2/3 text-white text-[35px] lg:text-[78px]  flex flex-col lg:flex-row justify-end mt-4 items-center gap-x-4">
                     <div className="font-custom ">
                       {t('Testimonios.title')}
                     </div>
-                    <Image src={"/isologo-04.png"} width={100} height={73} alt="oaoe" />
+                    <Image src={"/isologo-04.png"} width={100} height={73} className='' alt="oaoe" />
                   </div>
                 </div>
-                <div className='w-1/2 flex flex-col justify-center'>
+                <div className='hidden lg:w-1/2 lg:flex flex-col justify-center'>
                   <div className='h-[80%]'>
-                    <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" />
+                    <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" mobile='desktop'/>
                   </div>
                 </div>
               </div>
-              <div className='h-1/2 flex flex-col justify-center'>
-                <Carousel className="w-full max-w-[90%] ">
+              <div className='h-2/3 lg:h-1/2 flex flex-col justify-evenly lg:justify-center'>
+                <Carousel className="w-full lg:max-w-[90%] ">
                   <CarouselContent className="-ml-1 ">
                     {(t('Testimonios.testimonio', { returnObjects: true }) as any[]).map((ele, idx) => (
-                      <CarouselItem key={idx} className='p-1 basis-1/2 flex flex-col items-center' >
-                        <div className="relative w-[66%] aspect-video ">
+                      <CarouselItem key={idx} className='p-1  lg:basis-1/2 flex flex-col items-center' >
+                        <div className="relative w-[90%] lg:w-[66%] aspect-video ">
                           <div className='absolute w-[200px] h-[100px] bottom-0 bg-[#4a0700] rounded-3xl'></div>
                           <div className='absolute w-[45%] h-[45px] bottom-0  bg-[#4a0700] rounded-3xl z-20 text-white text-center align-'> {ele.name} </div>
                           <div className='absolute w-full h-full  bg-yellow-400 rounded-3xl transform translate-x-[20px]'>
@@ -256,29 +277,32 @@ export default async function Home(props: Props) {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
                 </Carousel>
+                <div className='lg:hidden w-full flex flex-col justify-center'>
+                  <div className='h-[80%]'>
+                    <YouTubeEmbed videoId="J4eLEY9fA9A" title="AAA" mobile='mobile'/>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </BoxSection>
-      <BoxSection full className=''>
+      <BoxSection half className=''>
         <div className='w-full h-full relative'>
           <div className='flex flex-col justify-center h-full'>
-            <div className=" w-[85%] mx-auto ">
-              <div>
+            <div className=" w-[90%] lg:w-[85%] mx-auto h-full">
+              <div className='h-full flex flex-col justify-evenly lg:justify-center'>
                 <div className='flex flex-row '>
-                  <div className='w-[25%] flex flex-row justify-center'>
+                  <div className='w-[25%] hidden lg:flex flex-row justify-center'>
                     <Image src={"/peruLogo.svg"} width={250} height={250} alt="logo" className='' />
                   </div>
-                  <div className='w-[75%] flex flex-col'>
+                  <div className='w-full lg:w-[75%] flex flex-col'>
                     <div className='h-1/3'></div>
-                    <div className='h-2/3 w-full mx-auto border-4 border-yellow-500 rounded-lg text-[#9E4848] font-custom  font-bold'>
-                      <div className='w-1/2 flex flex-row justify-evenly'>
-                        <span className='text-yellow-500 font-black text-4xl'>//</span>
-                        <span className='text-4xl leading-1'> {t('cuadroComparativo.titulo')} </span>
+                    <div className='h-2/3 w-full mx-auto lg:border-4 lg:border-yellow-500 rounded-lg text-[#9E4848] font-custom  font-bold'>
+                      <div className='w-full lg:w-1/2 flex flex-row justify-evenly'>
+                        <span className='text-yellow-500 font-black text-[14px] lg:text-4xl'>//</span>
+                        <span className='text-[35px] lg:text-4xl leading-1'> {t('cuadroComparativo.titulo')} </span>
                       </div>
                       <div className='w-1/2'>
 
@@ -317,11 +341,11 @@ export default async function Home(props: Props) {
           </div>
         </div>
       </BoxSection>
-      <BoxSection full className=''>
+      <BoxSection half className=''>
 
         <div className='w-full h-full relative'>
           <div className='flex flex-col justify-center h-full'>
-            <div className=" w-[85%] mx-auto ">
+            <div className="w-[90%] lg:w-[85%] mx-auto ">
               <div>
                 <Markdown options={
                   {
@@ -355,23 +379,22 @@ export default async function Home(props: Props) {
         </div>
 
       </BoxSection>
-      <BoxSection full className=''>
+      <BoxSection custom='equal' className=''>
         <div className='w-full h-full'>
-          <div className='flex flex-col justify-center h-full'>
-            <div className='w-[85%] mx-auto'>
-              
-              <div className='w-full flex flex-row justify-center items-center'>   
-              <div className='w-[80%] text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
-              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='h-[40px]' />
-              {t('FAQSeccion.titulo')}             </div>
+          <div className='flex flex-col justify-start lg:justify-start h-full'>
+            <div className='w-[85%] mx-auto h-full' >
+              <div className='h-[15%] lg:h-[25%] w-full flex flex-row justify-end lg:justify-center items-center'>   
+              <div className='w-[100%] h-full lg:w-[80%] text-[35px] lg:text-[90px] font-custom flex flex-row-reverse justify-center items-center gap-x-5 text-[#9E4848]'>
+              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='w-[30px] lg:w-[100px] h-[15px] lg:h-[40px]' />
+              {t('FAQSeccion.titulo')}</div>
               </div>
 
 
-              <div className='flex flex-row w-full'>
-                <div className='w-1/2'>
+              <div className='h-full flex flex-col lg:flex-row w-full'>
+                <div className='w-full lg:w-1/2'>
                   <FAQSection faqs={toQA(oddIndex)} />
                 </div>
-                <div className="w-1/2">
+                <div className="w-full lg:w-1/2">
                   <FAQSection faqs={toQA(evenIndex)} />
                 </div>
 
@@ -380,34 +403,39 @@ export default async function Home(props: Props) {
           </div>
         </div>
       </BoxSection>
-      <BoxSection full className="">
-        <div>
+      <BoxSection custom='equal' className="">
+        <div className='h-full w-full'>
+          <div className='h-[10%] w-full flex flex-row justify-end lg:justify-center items-center'>   
+              <div className='w-[100%] lg:w-[80%] text-[35px] lg:text-[90px] font-custom flex flex-row-reverse justify-center items-center gap-x-5 text-[#9E4848]'>
+              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='w-[30px] lg:w-[100px] h-[15px] lg:h-[40px]' />
+              {t('DestinosSeccion.titulo')}             </div>
+              </div>
           <DestinosCarousel destinos={destinosSeccion} />
         </div>
 
       </BoxSection>
-      <BoxSection full className="">
+      <BoxSection custom='equal' className="">
         <div className='flex flex-col justify-center h-full'>
-          <div >
-            <div className='flex flex-row justify-center'>
-              <div className='w-[40%] text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
-                <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='h-[40px]' />
+          <div className='h-full'>
+            <div className='h-[15%]  flex flex-row justify-center'>
+              <div className='w-[40%] text-[35px] lg:text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
+              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='w-[30px] lg:w-[100px] h-[15px] lg:h-[40px]' />
                 {t('Certificados.title')}            
                 </div>
             </div>
-            <div className='w-[60%] mx-auto'>
+            <div className='w-[90%] lg:w-[60%] mx-auto '>
               <ImageGrid data={dataCertificados} renderItemDesktop={DesktopComponentImageGrid} renderItemMobile={MobileComponentImageGrid} gridColumns={3} />
             </div>
           </div>
         </div>
       </BoxSection>
-      <BoxSection full className=''>
-        <div className='w-full h-full'>
-          <div className='flex flex-col justify-center items-center h-full'>
-            <div className='flex flex-col gap-y-10 w-full'>
-            <div className='w-full flex flex-row justify-center items-center'>   
-              <div className='w-[80%] text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
-              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='h-[40px]' />
+      <BoxSection custom="equal" className=''>
+        <div className='w-full flex flex-col justify-center h-full'>
+          <div className='flex flex-col justify-center items-center'>
+            <div className='flex flex-col gap-y-10 w-full h-full'>
+            <div className='h-[10%] lg:h-auto w-full flex flex-row justify-center items-center'>   
+              <div className='w-[80%] text-[30px] lg:text-[90px] font-custom flex flex-row justify-center items-center gap-x-5 text-[#9E4848]'>
+              <Image src={"/isologo-04.png"} width={100} height={40} alt="logo" className='w-[30px] lg:w-[100px] h-[15px] lg:h-[40px]' />
               {t('Alianzas.titulo')}             </div>
               </div>
 
@@ -420,27 +448,29 @@ export default async function Home(props: Props) {
         </div>
 
       </BoxSection>
-      <BoxSection full className=''>
+      <BoxSection custom="equal" className=''>
         <div className='w-full h-full'>
           <div className='h-1/3 flex flex-row justify-center items-center'>
-          <div className='w-[80%] font-custom text-[#47110D] text-[65px]'>{t('ctaForm.description')} </div>
+          <div className='w-[80%] font-custom text-[#47110D] text-[30px] lg:text-[65px]'>{t('ctaForm.description')} </div>
           </div>
-          <div className='h-2/3 relative'>
-          <Image src={APIBACK + t('ctaForm.background.url')} alt="" fill className='object-cover' />
-          <div className='absolute inset-0 bg-black bg-opacity-40'></div>
-          <div className='absolute w-full h-full flex flex-row justify-center items-center'>
-          <div className='w-1/2 flex flex-row justify-center'>
+          <div className='h-[40%] lg:h-2/3 relative w-full'>
+          {/*<Image src={APIBACK + t('ctaForm.background.url')} alt="" fill className='object-cover' />*/}
+          <ImageResponsive srcOptions={[APIBACK + t('ctaForm.background.url'),APIBACK + t('ctaForm.backgroundMobile.url')]} alt="footerImage"/>
+          <div className='absolute inset-0 bg-black bg-opacity-15 lg:bg-opacity-40'></div>
+          <div className='absolute top-0 w-full h-full flex flex-col lg:flex-row justify-center items-center'>
+          <div className='h-[30%] lg:h-auto w-full lg:w-1/2 flex flex-col lg:flex-row justify-center items-center'>
           <div className='w-[80%]'>
-            <div className='text-[32px] text-white font-bold'>
+            <div className='text-[15px] lg:text-[32px] text-white font-bold'>
             {t('ctaForm.description')}
             </div>
-            <div className='flex flex-row justify-end'>
-          <Image src={APIBACK + t('ctaForm.logo.url')} alt="" width={100}  height={100} className='object-cover' />
+            
             </div>
             </div>
-            </div>
-          <div className='w-1/2'></div>
+          <div className='h-[70%] w-full lg:w-1/2'></div>
           </div>
+          </div>
+          <div>
+            <Triangle height='h-10' bgColor='bg-yellow-500'/>                 
           </div>
 
         </div>

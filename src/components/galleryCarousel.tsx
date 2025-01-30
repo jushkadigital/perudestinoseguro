@@ -45,11 +45,11 @@ export const GalleryCarrousel = <T,>({
 
 
   return (
-    <div className=" h-full w-full flex flex-row justify-center">
+    <div className=" h-full w-full flex flex-row justify-center mt-6">
 
       <LayoutGroup>
         
-          <div className={`grid grid-cols-${gridColumns} gap-y-3 gap-x-2 w-full`}>
+          <div className={`grid grid-cols-${gridColumns} gap-y-3 gap-x-10 w-full`}>
             {data.map((ele, idx) => (<motion.div  key={idx} className={`relative  rounded-2xl  max-h-max shrink-0 overflow-hidden`} onClick={() => poper(idx)} >
               
               <ItemComponent item={ele}/>

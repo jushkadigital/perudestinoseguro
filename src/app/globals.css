@@ -225,7 +225,43 @@ border-top-width: 0 !important;
   margin-bottom: 10px;
 }
 
+.comparison-table {
+  width: 100%;
 
+  text-align: center;
+  font-family: "myFont", sans-serif;
+  font-size: 12px;
+  color: #9E4848;
+}
+.table-header {
+  font-weight: bold;
+  padding: 5px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
+.table-headerNone {
+  display: none;
+}
+
+.table-row-title {
+  font-weight: bold;
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #d9d9d9;
+}
+
+.table-cell {
+  padding: 25px;
+  border: 1px solid #d9d9d9;
+  background-color: #ffffff;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  text-align: center;
+  vertical-align: middle;
+}
 
 
 @media (min-width: 1024px){
@@ -383,9 +419,6 @@ padding-right:1.25rem;
   margin-bottom: 20px;
 }
 
-}
-
-
 .comparison-table {
   width: 100%;
   border-collapse: separate; /* Cambia a 'separate' para que funcione border-spacing */
@@ -425,6 +458,12 @@ padding-right:1.25rem;
   text-align: center;
   vertical-align: middle;
 }
+
+
+}
+
+
+
 
 
 

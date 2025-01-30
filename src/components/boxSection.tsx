@@ -7,6 +7,7 @@ import { useRef } from "react";
 import styles  from "./boxSection.module.css"
 import { cn, deviceOutput } from "@/lib/utils";
 import { useMobile } from "@/hooks/useMobile";
+import { equal } from "assert";
 
 const CHILD_VARIANTS_SCALE = {
   visible: { opacity: 1, scale: 1, transition: { duration: 1.2 } },
@@ -26,9 +27,11 @@ interface Props {
 className:string,
 full?: boolean,
 half?: boolean,
+custom?: string,
 once?: boolean,
 animation?: string,
 children: React.ReactNode
+special?: boolean
 }
 
   const vari:{[key:string]:any} = {
@@ -40,7 +43,57 @@ children: React.ReactNode
 
 
 
+
+
 export const BoxSection = ({
+  className,
+  full = false,
+  half = false,
+  once = false,
+  custom = "",
+  animation = "undefined",
+  children
+}:Props) => {
+  const isMobile = useMobile()
+  const ref = useRef(null)
+  const inView = useInView(ref,{once: once, amount: "some",margin: "0px 0px -100px 0px"
+})
+  //console.log(inView)
+
+ const customHeights:{[key:string]:any} = {
+  "equal": deviceOutput(100,1,"vh",isMobile)
+} 
+  
+  return (
+    <div
+      ref={ref}
+      style={{
+        height: full ? deviceOutput(100,1.5,"vh",isMobile) : half ? deviceOutput(100,0.75,"vh",isMobile) : customHeights[custom],
+      }}
+      
+      className={cn( full ? styles.snap_child_center : styles.snap_child_start ,`${ full ? "100vh" : "50vh" } `,className)}
+    >
+      <motion.div
+        // style={{
+        //   backgroundColor: "white",
+        //   zIndex: 40
+        // }}
+        className="h-full"
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={vari[animation]}
+      >
+        
+          {children}
+      </motion.div>
+    </div>
+  );
+};
+
+
+
+
+export const BoxSectionAnim = ({
   className,
   full = false,
   half = false,
@@ -52,7 +105,7 @@ export const BoxSection = ({
   const ref = useRef(null)
   const inView = useInView(ref,{once: once, amount: "some",margin: "0px 0px -100px 0px"
 })
-  console.log(inView)
+  //console.log(inView)
 
   
   
@@ -60,8 +113,7 @@ export const BoxSection = ({
     <div
       ref={ref}
       style={{
-        height: full ? deviceOutput(100,1.5,"vh",isMobile) : half ? deviceOutput(100,0.75,"vh",isMobile) : 120,
-
+        height: full ? deviceOutput(200,1.5,"vh",isMobile) : half ? deviceOutput(100,0.75,"vh",isMobile) : 120,
       }}
       
       className={cn( full ? styles.snap_child_center : styles.snap_child_start ,`${ full ? "100vh" : "50vh" } `,className)}

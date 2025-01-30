@@ -20,13 +20,13 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
 
  const SnapScrolling = ({children}:Props)=>{
 
-  const windowSize = useWindowSize()
+  //const windowSize = useWindowSize()
 
   const ref = useRef(null)
   const { scrollY, scrollYProgress } = useScroll(
+    {container: ref}
   )
-
-    const smoothScroll = useTransform(scrollY, (v) => v * 0.5);
+    //const smoothScroll = useTransform(scrollY, (v) => v * 0.5);
   // const pageRange = [0, 0.15, 0.3, 0.5, 0.7, 1];
   // const lengthRange = ["75vh", "45vh", "50vh", "45vh", "50vh", "100vh"];
   // const calcHeight = useTransform(scrollYProgress, pageRange, lengthRange)
@@ -35,35 +35,18 @@ const SnapParent = React.forwardRef<any>(({ ...props }, ref) => (
   const [scrollYProgressValue, setScrollYProgressValue] = useState(0)
   
 
-  useMotionValueEvent(scrollY,"change",(v)=> setScrollYValue(v))
-  useMotionValueEvent(scrollYProgress,"change",(v)=> setScrollYProgressValue(v))
+  //useMotionValueEvent(scrollY,"change",(v)=> {console.log(v)})
+  console.log("SAA")
 
   return (
     <div
-    className="relative w-full h-screen"
-      
+    style={{position:"relative"}}
     >
-     
-      <div
-        style={{
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          zIndex: 20,
-          pointerEvents: "none",
-          overflowX: "hidden"
-        }}
-      >
-      </div>
       <SnapParent
         ref={ref}
         style={{
           position: "absolute",
-          y: smoothScroll
         }}
-
       >
         {children}
       </SnapParent>

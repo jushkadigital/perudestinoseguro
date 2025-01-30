@@ -6,7 +6,7 @@ import { ImagePopUp } from './imagePopUp';
 import { SwipeCarousel } from "./swiperCarousel";
 import { GalleryCarrousel } from "./galleryCarousel";
 import { useMobile } from '@/hooks/useMobile';
-import { Carousel, CarouselContent, CarouselItem } from './ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 
 interface Props<T> {
   data: T[]; // Un array de cualquier tipo de datos
@@ -25,14 +25,24 @@ export  const ImageGrid =<T,>({
 
   const isMobile = useMobile()
   return isMobile ?  
-  <Carousel>
-    <CarouselContent>
+  <Carousel opts={{
+              align: "start",
+            }}
+            className="w-full h-full"
+>
+    <CarouselContent
+    className='-ml-1 h-[550px]'
+    >
     {data.map((ele, index) => (
-      <CarouselItem key={index}>
+      <CarouselItem key={index}
+        className='pt-1 flex flex-col items-center'
+      >
         <ItemComponent2 item={ele}/>
       </CarouselItem>
     ))}
     </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
     </Carousel>
   : <GalleryCarrousel data={data} renderItemDesktop={ItemComponent} gridColumns={gridColumns} />
 }
